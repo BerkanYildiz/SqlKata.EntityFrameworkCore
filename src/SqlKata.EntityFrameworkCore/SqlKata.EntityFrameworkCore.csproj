@@ -8,6 +8,7 @@
     <PackageProjectUrl>https://github.com/BerkanYildiz/SqlKata.EntityFrameworkCore</PackageProjectUrl>
     <Description>.NET library that aims to facilitate the combination of DbContexts (EntityFrameworkCore) and SqlKata queries.</Description>
     <PackageTags>sqlkata entityframework dbcontext raw sql query queries linq execute</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
