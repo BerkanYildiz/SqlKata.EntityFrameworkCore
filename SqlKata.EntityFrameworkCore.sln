@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FDF2C172-7CCB-4F26-8B50-793127636032}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{8D38F4C4-1D2D-49ED-9947-A2404C7FF3E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlKata.EntityFrameworkCore", "src\SqlKata.EntityFrameworkCore\SqlKata.EntityFrameworkCore.csproj", "{FD30889E-3F1E-4DB4-A20D-FE3A6A9A8BAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD30889E-3F1E-4DB4-A20D-FE3A6A9A8BAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD30889E-3F1E-4DB4-A20D-FE3A6A9A8BAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD30889E-3F1E-4DB4-A20D-FE3A6A9A8BAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD30889E-3F1E-4DB4-A20D-FE3A6A9A8BAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB0DB490-8F8F-4E41-9D63-C21A958EE919}
+	EndGlobalSection
+EndGlobal
