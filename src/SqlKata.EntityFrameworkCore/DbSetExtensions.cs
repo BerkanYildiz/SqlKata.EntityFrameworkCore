@@ -41,6 +41,10 @@
         public static IQueryable<T> FromSqlKata<T>(this DbSet<T> This, Compiler InCompiler, Query InQuery) where T : class
         {
             SqlKataEntityFramework.LastUsedCompiler = InCompiler;
+
+            if (!InQuery.HasComponent("from"))
+                InQuery.From(This.EntityType.GetTableName());
+
             return FromSqlKata<T>(This, InCompiler.Compile(InQuery));
         }
 
@@ -65,7 +69,12 @@
         public static IQueryable<T> FromSqlKata<T>(this DbSet<T> This, Compiler InCompiler, Func<Query, Query> InQuery) where T : class
         {
             SqlKataEntityFramework.LastUsedCompiler = InCompiler;
-            return FromSqlKata<T>(This, InCompiler.Compile(InQuery(new Query())));
+
+            var Query = InQuery(new Query());
+            if (!Query.HasComponent("from"))
+                Query.From(This.EntityType.GetTableName());
+
+            return FromSqlKata<T>(This, InCompiler.Compile(Query));
         }
     }
 }
