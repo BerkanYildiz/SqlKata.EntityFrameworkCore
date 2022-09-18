@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net5.0</TargetFrameworks>
+	<TargetFrameworks>net6.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/BerkanYildiz/SqlKata.EntityFrameworkCore</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -11,13 +11,26 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
+  <!-- <ItemGroup Condition="$(TargetFrameworks) == 'net5.0'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFrameworks) == 'net6.0'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.9" />
+  </ItemGroup> -->
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.10" />
-    <PackageReference Include="SqlKata" Version="2.3.7" />
+	<PackageReference Include="SqlKata" Version="2.3.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.9" />
   </ItemGroup>
 
 </Project>

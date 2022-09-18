@@ -43,7 +43,7 @@
             SqlKataEntityFramework.LastUsedCompiler = InCompiler;
 
             if (!InQuery.HasComponent("from"))
-                InQuery.From(This.EntityType.GetTableName());
+                InQuery.From(This.EntityType.GetSchemaQualifiedTableName());
 
             return FromSqlKata<T>(This, InCompiler.Compile(InQuery));
         }
@@ -72,7 +72,7 @@
 
             var Query = InQuery(new Query());
             if (!Query.HasComponent("from"))
-                Query.From(This.EntityType.GetTableName());
+                Query.From(This.EntityType.GetSchemaQualifiedTableName());
 
             return FromSqlKata<T>(This, InCompiler.Compile(Query));
         }

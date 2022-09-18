@@ -12,7 +12,7 @@
         /// <param name="InEntityType">The entity model.</param>
         public static Query From(this Query This, IEntityType InEntityType)
         {
-            return This.From(InEntityType.GetTableName());
+            return This.From(InEntityType.GetSchemaQualifiedTableName());
         }
 
         /// <summary>
