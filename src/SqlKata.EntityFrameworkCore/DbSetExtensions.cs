@@ -4,8 +4,7 @@
     using System.Linq;
 
     using Microsoft.EntityFrameworkCore;
-
-    using SqlKata.Compilers;
+    using Microsoft.EntityFrameworkCore.Infrastructure;
 
     public static class DbSetExtensions
     {
@@ -28,24 +27,10 @@
         /// <param name="InQuery">The query.</param>
         public static IQueryable<T> FromSqlKata<T>(this DbSet<T> This, Query InQuery) where T : class
         {
-            return FromSqlKata<T>(This, SqlKataEntityFramework.DefaultCompiler, InQuery);
-        }
-
-        /// <summary>
-        /// Executes a strongly-typed raw SQL query against the database.
-        /// </summary>
-        /// <typeparam name="T">The database set's entity model.</typeparam>
-        /// <param name="This">The database set.</param>
-        /// <param name="InCompiler">The query compiler.</param>
-        /// <param name="InQuery">The query.</param>
-        public static IQueryable<T> FromSqlKata<T>(this DbSet<T> This, Compiler InCompiler, Query InQuery) where T : class
-        {
-            SqlKataEntityFramework.LastUsedCompiler = InCompiler;
-
             if (!InQuery.HasComponent("from"))
                 InQuery.From(This.EntityType.GetSchemaQualifiedTableName());
 
-            return FromSqlKata<T>(This, InCompiler.Compile(InQuery));
+            return FromSqlKata<T>(This, SqlKataEntityFramework.DefaultCompiler.Compile(InQuery));
         }
 
         /// <summary>
@@ -56,25 +41,7 @@
         /// <param name="InQuery">The query.</param>
         public static IQueryable<T> FromSqlKata<T>(this DbSet<T> This, Func<Query, Query> InQuery) where T : class
         {
-            return FromSqlKata<T>(This, SqlKataEntityFramework.DefaultCompiler, InQuery(new Query()));
-        }
-
-        /// <summary>
-        /// Executes a strongly-typed raw SQL query against the database.
-        /// </summary>
-        /// <typeparam name="T">The database set's entity model.</typeparam>
-        /// <param name="This">The database set.</param>
-        /// <param name="InCompiler">The query compiler.</param>
-        /// <param name="InQuery">The query.</param>
-        public static IQueryable<T> FromSqlKata<T>(this DbSet<T> This, Compiler InCompiler, Func<Query, Query> InQuery) where T : class
-        {
-            SqlKataEntityFramework.LastUsedCompiler = InCompiler;
-
-            var Query = InQuery(new Query());
-            if (!Query.HasComponent("from"))
-                Query.From(This.EntityType.GetSchemaQualifiedTableName());
-
-            return FromSqlKata<T>(This, InCompiler.Compile(Query));
+            return FromSqlKata(This, InQuery(new Query()));
         }
     }
 }

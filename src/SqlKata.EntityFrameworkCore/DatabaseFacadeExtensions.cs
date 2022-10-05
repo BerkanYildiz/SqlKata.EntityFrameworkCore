@@ -6,8 +6,6 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Infrastructure;
 
-    using SqlKata.Compilers;
-
     public static class DatabaseFacadeExtensions
     {
         /// <summary>
@@ -27,19 +25,7 @@
         /// <param name="InQuery">The query.</param>
         public static int ExecuteSqlKata(this DatabaseFacade This, Query InQuery)
         {
-            return ExecuteSqlKata(This, SqlKataEntityFramework.DefaultCompiler, InQuery);
-        }
-
-        /// <summary>
-        /// Executes a raw SQL query against the database.
-        /// </summary>
-        /// <param name="This">The database facade.</param>
-        /// <param name="InCompiler">The query compiler.</param>
-        /// <param name="InQuery">The query.</param>
-        public static int ExecuteSqlKata(this DatabaseFacade This, Compiler InCompiler, Query InQuery)
-        {
-            SqlKataEntityFramework.LastUsedCompiler = InCompiler;
-            return ExecuteSqlKata(This, InCompiler.Compile(InQuery));
+            return ExecuteSqlKata(This, SqlKataEntityFramework.DefaultCompiler.Compile(InQuery));
         }
 
         /// <summary>
@@ -49,19 +35,7 @@
         /// <param name="InQuery">The query.</param>
         public static int ExecuteSqlKata(this DatabaseFacade This, Func<Query, Query> InQuery)
         {
-            return ExecuteSqlKata(This, SqlKataEntityFramework.DefaultCompiler, InQuery(new Query()));
-        }
-
-        /// <summary>
-        /// Executes a raw SQL query against the database.
-        /// </summary>
-        /// <param name="This">The database facade.</param>
-        /// <param name="InCompiler">The query compiler.</param>
-        /// <param name="InQuery">The query.</param>
-        public static int ExecuteSqlKata(this DatabaseFacade This, Compiler InCompiler, Func<Query, Query> InQuery)
-        {
-            SqlKataEntityFramework.LastUsedCompiler = InCompiler;
-            return ExecuteSqlKata(This, InCompiler.Compile(InQuery(new Query())));
+            return ExecuteSqlKata(This, InQuery(new Query()));
         }
 
         /// <summary>
@@ -81,19 +55,7 @@
         /// <param name="InQuery">The query.</param>
         public static Task<int> ExecuteSqlKataAsync(this DatabaseFacade This, Query InQuery)
         {
-            return ExecuteSqlKataAsync(This, SqlKataEntityFramework.DefaultCompiler, InQuery);
-        }
-
-        /// <summary>
-        /// Executes a raw SQL query against the database.
-        /// </summary>
-        /// <param name="This">The database facade.</param>
-        /// <param name="InCompiler">The query compiler.</param>
-        /// <param name="InQuery">The query.</param>
-        public static Task<int> ExecuteSqlKataAsync(this DatabaseFacade This, Compiler InCompiler, Query InQuery)
-        {
-            SqlKataEntityFramework.LastUsedCompiler = InCompiler;
-            return ExecuteSqlKataAsync(This, InCompiler.Compile(InQuery));
+            return ExecuteSqlKataAsync(This, SqlKataEntityFramework.DefaultCompiler.Compile(InQuery));
         }
 
         /// <summary>
@@ -103,19 +65,7 @@
         /// <param name="InQuery">The query.</param>
         public static Task<int> ExecuteSqlKataAsync(this DatabaseFacade This, Func<Query, Query> InQuery)
         {
-            return ExecuteSqlKataAsync(This, SqlKataEntityFramework.DefaultCompiler, InQuery(new Query()));
-        }
-
-        /// <summary>
-        /// Executes a raw SQL query against the database.
-        /// </summary>
-        /// <param name="This">The database facade.</param>
-        /// <param name="InCompiler">The query compiler.</param>
-        /// <param name="InQuery">The query.</param>
-        public static Task<int> ExecuteSqlKataAsync(this DatabaseFacade This, Compiler InCompiler, Func<Query, Query> InQuery)
-        {
-            SqlKataEntityFramework.LastUsedCompiler = InCompiler;
-            return ExecuteSqlKataAsync(This, InCompiler.Compile(InQuery(new Query())));
+            return ExecuteSqlKataAsync(This, InQuery(new Query()));
         }
     }
 }
