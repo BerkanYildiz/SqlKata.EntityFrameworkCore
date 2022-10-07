@@ -1,4 +1,4 @@
-# SqlKata.EntityFrameworkCore [![SqlKata.EntityFrameworkCore](https://img.shields.io/nuget/v/SqlKata.EntityFrameworkCore.svg)](https://www.nuget.org/packages/SqlKata.EntityFrameworkCore/) [![SqlKata.EntityFrameworkCore](https://img.shields.io/nuget/dt/SqlKata.EntityFrameworkCore.svg)](https://www.nuget.org/packages/SqlKata.EntityFrameworkCore/)
+# SqlKata.EntityFrameworkCore [![SqlKata.EntityFrameworkCore](https://img.shields.io/nuget/v/SqlKata.EntityFrameworkCore.svg)](https://www.nuget.org/packages/SqlKata.EntityFrameworkCore/) [![SqlKata.EntityFrameworkCore](https://img.shields.io/nuget/dt/SqlKata.EntityFrameworkCore.svg)](https://www.nuget.org/packages/SqlKata.EntityFrameworkCore/) [![build](https://github.com/BerkanYildiz/SqlKata.EntityFrameworkCore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/BerkanYildiz/SqlKata.EntityFrameworkCore/actions/workflows/dotnet.yml)
 
 .NET library that aims to facilitate the combination of DbContexts (EntityFrameworkCore) and SqlKata queries.
 
