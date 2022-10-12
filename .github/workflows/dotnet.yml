@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -20,6 +19,21 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build -c Release --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test -c Release --no-build --verbosity normal
+    - name: Authenticate
+      run: dotnet nuget add source --username ${{github.REPOSITORY_OWNER}} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{github.REPOSITORY_OWNER}}/index.json"
+    - name: Publish
+      run: dotnet nuget push **/*.nupkg --source "github" --skip-duplicate
+    - name: Cache
+      uses: actions/cache@v3.0.10
+      with:
+        # A list of files, directories, and wildcard patterns to cache and restore
+        path: **/*.nupkg
+        # An explicit key for restoring and saving the cache
+        key: bundled-project-nupkg
+        # An ordered list of keys to use for restoring stale cache if no cache hit occurred for key. Note `cache-hit` returns false in this case.
+        restore-keys: # optional
+        # The chunk size used to split up large files during upload, in bytes
+        upload-chunk-size: # optional

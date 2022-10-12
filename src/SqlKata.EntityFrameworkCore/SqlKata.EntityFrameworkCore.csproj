@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 	<TargetFrameworks>net6.0</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/BerkanYildiz/SqlKata.EntityFrameworkCore</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/BerkanYildiz/SqlKata.EntityFrameworkCore</PackageProjectUrl>
