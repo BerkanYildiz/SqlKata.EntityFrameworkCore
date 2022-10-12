@@ -5,6 +5,12 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    
+env:
+  # Stop wasting time caching packages
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  # Disable sending usage data to Microsoft
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
   build:
@@ -26,14 +32,10 @@ jobs:
       run: dotnet nuget add source --username ${{github.REPOSITORY_OWNER}} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{github.REPOSITORY_OWNER}}/index.json"
     - name: Publish
       run: dotnet nuget push **/*.nupkg --source "github" --skip-duplicate
-    - name: Cache
-      uses: actions/cache@v3.0.10
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.0
       with:
-        # A list of files, directories, and wildcard patterns to cache and restore
-        path: **/*.nupkg
-        # An explicit key for restoring and saving the cache
-        key: bundled-project-nupkg
-        # An ordered list of keys to use for restoring stale cache if no cache hit occurred for key. Note `cache-hit` returns false in this case.
-        restore-keys: # optional
-        # The chunk size used to split up large files during upload, in bytes
-        upload-chunk-size: # optional
+        name: release-nupkg
+        path: ./src/**/*.nupkg
+        if-no-files-found: error
+        retention-days: 0
