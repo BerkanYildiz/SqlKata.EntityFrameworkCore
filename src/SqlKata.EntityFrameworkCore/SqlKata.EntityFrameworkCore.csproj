@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+	<TargetFrameworks>net9.0</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/BerkanYildiz/SqlKata.EntityFrameworkCore</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -11,7 +11,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
@@ -33,12 +33,12 @@
   </ItemGroup> -->
 
   <ItemGroup>
-	<PackageReference Include="SqlKata" Version="2.4.0" />
+	<PackageReference Include="SqlKata" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.3" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.3" />
   </ItemGroup>
 
 </Project>
