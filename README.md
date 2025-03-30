@@ -1,50 +1,55 @@
 # SqlKata.EntityFrameworkCore [![SqlKata.EntityFrameworkCore](https://img.shields.io/nuget/v/SqlKata.EntityFrameworkCore.svg)](https://www.nuget.org/packages/SqlKata.EntityFrameworkCore/) [![SqlKata.EntityFrameworkCore](https://img.shields.io/nuget/dt/SqlKata.EntityFrameworkCore.svg)](https://www.nuget.org/packages/SqlKata.EntityFrameworkCore/) [![build](https://github.com/BerkanYildiz/SqlKata.EntityFrameworkCore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/BerkanYildiz/SqlKata.EntityFrameworkCore/actions/workflows/dotnet.yml)
 
-.NET library that aims to facilitate the combination of DbContexts (EntityFrameworkCore) and SqlKata queries.
+A lightweight, fluent integration library that seamlessly connects SqlKata's powerful query builder with Entity Framework's DbContext.  
+Build complex SQL queries using your existing Entity Framework models without the limitations of LINQ.
+
+## Features
+
+- Directly query EF entities using SqlKata's fluent syntax
+- Automatic table name resolution from DbContext
+- ~Strong typing support for column selection~
+- ~Built-in mapping of query results to entity objects~
+- ~Transaction support~
+- Comprehensive extension methods for DbContext and DbSet
+- Performance optimized with minimal overhead
 
 ## Installation
 
     PM> Install-Package SqlKata.EntityFrameworkCore
 
-## Example
+## Example without SqlKata.EntityFrameworkCore
+
+Typically, if you're using DbContext, executing a query against your database using SqlKata would look like this:
 
 ```csharp
-using SqlKata;
-using SqlKata.Compilers;
-using SqlKata.EntityFrameworkCore;
+var QueryCompiler = new SqliteCompiler();
+var InsertQuery = new Query("users").AsInsert(new { email = "john.doe@example.com", username = "John", password = "Example123!#", created_at = DateTime.UtcNow, updated_at = DateTime.UtcNow });
+var CompiledInsertQuery = QueryCompiler.Compile(InsertQuery);
+_ = SomeDbContext.Database.ExecuteSqlRaw(CompiledInsertQuery.Sql, CompiledInsertQuery.Bindings.ToArray());
+```
 
+There are multiple things annoying with this:
+- You have to instantiate a compiler, cache it to avoid constantly re-instantiating.
+- You have to create a query, and hardcode the table name you're querying against.
+- You have to compile the query, save it into a variable, and pass it to ExecuteSqlRaw.
 
-using var Db = new MyDbContext();
+This is WAY too much work for a simple query, and that's exactly where our library comes into play!
 
-// Set the compiler.
-SqlKataEntityFramework.SetDefaultCompiler(new MySqlCompiler());
+## Example with SqlKata.EntityFrameworkCore
 
-// Example 1
-var BerkanLogins = Db.UsersLogins.FromSqlKata(
-	Query => Query.From("users_logins").Where("user_id", 1).Limit(0).OrderByDesc("id")).ToList();
-Console.WriteLine($"BerkanLogins: Admin logged in {BerkanLogins.Count} times, last login from {BerkanLogins.FirstOrDefault()?.IpAddress}");
+With our library, all you have to do is:
+- Specify which compiler you want to use (only one single time).
+- The actual query.
 
-// Example 2
-var UserLogin2 = Db.UsersLogins.FromSqlKata(new Query("users_logins")
-	.Where("user_id", "6")
-	.Limit(1))
-	.FirstOrDefault();
-Console.WriteLine($"UserLogin2: {UserLogin2?.IpAddress}");
+```csharp
+// Specify the compiler that must be used for all future queries.
+SqlKataEntityFramework.SetDefaultCompiler<SqliteCompiler>();
 
-// Example 3 - Executing commands
-var LoginsDeleted = Db.Database.ExecuteSqlKata(new Query("users_logins")
-	.Where("ip_address", "LIKE", "127.0.0.1")
-	.OrderBy("id")
-	.AsDelete());
-Console.WriteLine($"{LoginsDeleted} logins were deleted!");
+// Insert the user.
+_ = Db.Database.ExecuteSqlKata(T => T.From(Db.Users).AsInsert(new { email = "jane.doe@example.com", username = "Jane", password = "Example123!#", created_at = DateTime.UtcNow, updated_at = DateTime.UtcNow }));
 
-// Example 4 - Executing commands
-var RowsUpdated = Db.Database.ExecuteSqlKata(new Query("users_groups_links")
-	.AsUpdate(new { user_group_id = 7 })
-	.Where("user_id", 1)
-	.Where("user_group_id", 6));
-Console.WriteLine($"{RowsUpdated} rows were affected!");
-
+// Fetching data is even more simple.
+_ = Db.Users.FromSqlKata(T => T.Select("*").Where("id", 1)).Single();
 ```
 
 # License
