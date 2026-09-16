@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/SqlKata.EntityFrameworkCore.Example/SqlKata.EntityFrameworkCore.Example.csproj" />
+  <Project Path="src/SqlKata.EntityFrameworkCore/SqlKata.EntityFrameworkCore.csproj" />
+</Solution>

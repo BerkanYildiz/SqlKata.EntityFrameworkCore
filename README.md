@@ -13,9 +13,15 @@ Build complex SQL queries using your existing Entity Framework models without th
 - Comprehensive extension methods for DbContext and DbSet
 - Performance optimized with minimal overhead
 
+## Requirements
+
+- .NET 10 or later
+- Entity Framework Core 10 or later
+- SqlKata 4 or later
+
 ## Installation
 
-    PM> Install-Package SqlKata.EntityFrameworkCore
+    dotnet add package SqlKata.EntityFrameworkCore
 
 ## Example without SqlKata.EntityFrameworkCore
 
@@ -50,7 +56,13 @@ _ = Db.Database.ExecuteSqlKata(T => T.From(Db.Users).AsInsert(new { email = "jan
 
 // Fetching data is even more simple.
 _ = Db.Users.FromSqlKata(T => T.Select("*").Where("id", 1)).Single();
+
+// Async variants are available too, with optional cancellation tokens.
+_ = await Db.Database.ExecuteSqlKataAsync(T => T.From(Db.Users).AsUpdate(new { username = "Jane Doe" }).Where("id", 1), cancellationToken);
+_ = await Db.Users.FromSqlKata(T => T.Where("id", 1)).SingleAsync(cancellationToken);
 ```
+
+When the query has no `From(...)` clause, `FromSqlKata` uses the table mapped to the `DbSet` automatically.
 
 # License
 You are free to use this library however you or your company wants to.
